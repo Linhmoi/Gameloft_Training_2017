@@ -9,15 +9,6 @@
 #include <iostream>
 #include <vector>
 
-#define PLAYER_W 100
-#define PLAYER_H 50
-#define ENEMY_W 80
-#define ENEMY_H 40
-#define EXPLOSION_W 80
-#define EXPLOSION_H 80
-#define STAR_EFFECT_W 80
-#define STAR_EFFECT_H 80
-
 class GameScene : public Scene
 {
 private:

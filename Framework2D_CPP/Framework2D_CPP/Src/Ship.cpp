@@ -52,7 +52,10 @@ void Ship::LoadWeapon(Ship::WeaponType type)
 
 void Ship::FireWeapon()
 {
+	int spawnPosX = this->_pos.x + (this->_rect.w / 2);
+	int spawnPosY = this->_pos.y - 100;
 	this->_weaponControl->Render(this->_rect.w / 2, this->_rect.h - 50, 50, 80);
+	this->_weaponControl->Spawn(0, 0, 0, 0);
 }
 
 void Ship::MoveLeft()
@@ -60,17 +63,14 @@ void Ship::MoveLeft()
 	SDL_Log("Pos before move left: %d", this->_pos.x);
 	this->_pos.x -= this->_velocity;
 	SDL_Log("Pos after move left: %d", this->_pos.x);
-	if (this->_pos.x == 0 + this->_rect.w)
+	if (this->_pos.x == 0) 
 	{
 		this->_pos.x += this->_velocity;
 	}
 }
 
-void Ship::MoveRight()
+void Ship::MoveRight(int screenW, int screenH)
 {
-	int screenW, screenH;
-	fwGetDisplayMode(screenW, screenH);
-
 	this->_pos.x += this->_velocity;
 
 	if (this->_pos.x == screenW - this->_rect.w)

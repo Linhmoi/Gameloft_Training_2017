@@ -33,7 +33,7 @@ public:
 	#pragma endregion
 
 	void MoveLeft();
-	void MoveRight();
+	void MoveRight(int, int);
 	void LoadWeapon(WeaponType);
 	void FireWeapon();
 	bool CheckCollision(Ship*);

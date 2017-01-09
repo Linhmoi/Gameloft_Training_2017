@@ -3,12 +3,13 @@
 #define UILEEMENT_H
 
 #include "Sprite.h"
+#include <string>
 
 class UIElement : public Sprite
 {
 private:
 	Font* _font;
-	char* _text;
+	std::string _text;
 	Color _color;
 	Color _shadedColor;
 
@@ -24,11 +25,11 @@ public:
 
 	#pragma region Get and Set methods
 	Font* getFont();
-	char* getText();
+	std::string getText();
 	Color getColor();
 	Color getShadedColor();
 	void setFont(Font*);
-	void setText(char*);
+	void setText(std::string);
 	void setColor(Color);
 	void setColor(Uint8, Uint8, Uint8);
 	void setShadedColor(Color);

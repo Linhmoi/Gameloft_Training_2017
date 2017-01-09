@@ -1,4 +1,4 @@
-#pragma one
+#pragma once
 #ifndef MENU_SCENE_H
 #define MENU_SCENE_H
 
@@ -39,6 +39,8 @@ public:
 	void AboutPanel();
 	void HelpPanel();
 	void ExitGame();
+	void HideMenu();
+	void ShowMenu();
 };
 
 #endif // !MENU_SCENE_H

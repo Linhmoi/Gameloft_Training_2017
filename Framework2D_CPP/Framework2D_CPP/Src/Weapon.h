@@ -23,6 +23,7 @@ public:
 
 	void Spawn(int, int, int, int);
 	bool CheckCollision(Sprite*);
+	//bool CheckCollision(Ship*);
 };
 
 #endif

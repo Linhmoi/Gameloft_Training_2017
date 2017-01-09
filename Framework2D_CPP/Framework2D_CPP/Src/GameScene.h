@@ -6,23 +6,25 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "UIElement.h"
+#include "GameController.h"
 #include <iostream>
 #include <vector>
 
 class GameScene : public Scene
 {
 private:
-	std::vector<Enemy*> _listEnemy;
-	std::vector<Weapon*> _listWeapon;
-	std::vector<Sprite*> _explosion;
-	std::vector<Sprite*> _starEffect;
-	Player* _player;
-	Sprite* _hearts[3];
-	UIElement* _score;
-	UIElement* _txtWinGame;
-	UIElement* _txtGameOver;
-	Sprite* _background;
-	Sprite* _secondBG;
+	//std::vector<Enemy*> _listEnemy;
+	//std::vector<Weapon*> _listWeapon;
+	//std::vector<Sprite*> _explosion;
+	//std::vector<Sprite*> _starEffect;
+	//Player* _player;
+	//Sprite* _hearts[3];
+	//UIElement* _score;
+	//UIElement* _txtWinGame;
+	//UIElement* _txtGameOver;
+	//Sprite* _background;
+	//Sprite* _secondBG;
+	
 	int _level;
 	int _nEnemies;
 	bool _isGameOver;
@@ -42,17 +44,6 @@ public:
 	void Update();
 	void Render();
 	void Destroy();
-
-	void SpawnEnemy();
-	void WinGame();
-	void GameOver();
-	void ScrollBackground();
-	void LoadNextLevel();
-	void ReturnToMenu();
-	void ExitGame();
-	void RestartLevel();
-	void DestroyByTime();
-	void DestroyOnContact();
 
 	void OnMouseDown();
 	void OnMouseOver();

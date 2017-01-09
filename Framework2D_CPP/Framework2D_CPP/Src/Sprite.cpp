@@ -8,9 +8,11 @@ Sprite::Sprite()
 	this->_pos.y = 0;
 	this->_w = 0;
 	this->_h = 0;
-	this->isRender = false;
+	this->isRender = true;
+	this->isCollied = false;
 	this->_alpha = 255;
 	this->_tag = "image";
+	this->_startTime = SDL_GetTicks();
 }
 
 Sprite::Sprite(int x, int y)
@@ -20,9 +22,11 @@ Sprite::Sprite(int x, int y)
 	this->_pos.y = y;
 	this->_w = 0;
 	this->_h = 0;
-	this->isRender = false;
+	this->isRender = true;
+	this->isCollied = false;
 	this->_alpha = 255;
 	this->_tag = "image";
+	this->_startTime = SDL_GetTicks();
 }
 
 Sprite::Sprite(Point pos)
@@ -31,9 +35,11 @@ Sprite::Sprite(Point pos)
 	this->_tex = NULL;
 	this->_w = 0;
 	this->_h = 0;
-	this->isRender = false;
+	this->isRender = true;
+	this->isCollied = false;
 	this->_alpha = 255;
 	this->_tag = "image";
+	this->_startTime = SDL_GetTicks();
 }
 
 Sprite::~Sprite()
@@ -74,6 +80,11 @@ char* Sprite::getTag()
 Uint8 Sprite::getAlpha()
 {
 	return this->_alpha;
+}
+
+Uint32 Sprite::getStartTime()
+{
+	return this->_startTime;
 }
 
 void Sprite::setPosition(Point pos)
@@ -128,6 +139,11 @@ void Sprite::SetBlendMode(BlendMode mode)
 	SDL_SetTextureBlendMode(this->_tex, mode);
 }
 
+void Sprite::setIsRender(bool isRender)
+{
+	this->isRender = isRender;
+}
+
 void Sprite::Render()
 {
 	this->_rect.x = this->_pos.x;
@@ -151,7 +167,7 @@ void Sprite::Render(int w, int h)
 	this->_rect.y = this->_pos.y;
 	this->_rect.h = h;
 	this->_rect.w = w;
-	SDL_Log("Draw");
+	//SDL_Log("Draw");
 	fwRenderTexture(this->_tex, &src, &this->_rect);
 	this->isRender = true;
 }
@@ -206,6 +222,15 @@ void Sprite::RenderAnimation(int startFrame, int nFrames, int offset,int frameW,
 	this->isRender = true;
 }
 
+//Summary: Render a spritesheet
+//startFrame: the position of the first frame you want to render.
+//nFrames: the number of frames you want to render.
+//speed: rendering speed.
+//offset: pixel offset between 2 frame.
+//frameW: frame's width
+//frameH: frame's height
+//w: width
+//h: height
 void Sprite::RenderAnimation(int startFrame, int nFrames, int offset, int frameW, int frameH, int w = 50, int h = 50, int speed = 1)
 {
 	Uint32 tick = SDL_GetTicks();
@@ -312,17 +337,17 @@ bool Sprite::CheckCollision(Sprite* spr)
 	return false;
 }
 
-bool Sprite::isOutOfScreen()
+bool Sprite::isOutOfScreen(int screenW, int screenH)
 {
-	int screenW, screenH;
-	fwGetDisplayMode(screenW, screenH);
+	//int screenW, screenH;
+	//fwGetDisplayMode(screenW, screenH);
 
-	if (this->_pos.x <= 0 - this->_rect.h - RANGE || this->_pos.x >= screenH + this->_rect.h + RANGE)
+	if (this->_pos.x <= 0 - RANGE || this->_pos.x >= screenW + RANGE)
 	{
 		return true;
 	}
 
-	if (this->_pos.y <= 0 - this->_rect.w - RANGE || this->_pos.y >= screenW + this->_rect.w + RANGE)
+	if (this->_pos.y <= 0 - RANGE || this->_pos.y >= screenH + RANGE)
 	{
 		return true;
 	}
@@ -337,5 +362,15 @@ bool Sprite::CheckIsRender()
 		return true;
 	}
 	return false;
+}
+
+bool Sprite::CheckIsCollied()
+{
+	return this->isCollied;
+}
+
+void Sprite::setIsCollied(bool isCollied)
+{
+	this->isCollied = isCollied;
 }
 

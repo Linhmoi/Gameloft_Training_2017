@@ -4,8 +4,8 @@
 
 Beam::Beam()
 {
-	this->_damage = 1;
-	this->_velocity = 3;
+	/*this->_damage = 1;
+	this->_velocity = 3;*/
 }
 
 

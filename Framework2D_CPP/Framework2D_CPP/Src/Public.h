@@ -2,8 +2,11 @@
 #ifndef PUBLIC_H
 #define PUBLIC_H
 
+#include "Framework.h"
+
 #define GAME_TITLE_COLOR	{ 243, 158, 18}
 #define BTN_TEXT_COLOR		{255, 255, 255}
+#define BTN_TEXT_HOVER_COLOR {192, 192, 192};
 #define GAME_TITLE_FONT "Resources/Fonts/DeathStar.otf"
 #define BTN_TEXT_FONT "Resources/Fonts/Canarsie_Slab_JL.ttf"
 #define GAME_TITLE_FONT_SIZE 50
@@ -20,15 +23,24 @@
 #define BG2_SPRITE_PATH "Resources/Background/SpaceBackground-9.jpg"
 #define BG3_SPRITE_PATH "Resources/Background/SpaceBackground-8.jpg"
 
-#define BEAM_W 30
-#define BEAM_H 60
-#define MISSILE_W 30
-#define MISSILE_H 60
-#define TORPEDO_W 40
-#define TORPEDO_H 80
+#define BEAM_WIDTH 15
+#define BEAM_HEIGHT 25
+#define MISSILE_WIDTH 15
+#define MISSILE_HEIGHT 25
+#define TORPEDO_WIDTH 20
+#define TORPEDO_HEIGHT 30
 #define BEAM_SPRITE_PATH "Resources/beams_50.png"
 #define TORPEDO_SPRITE_PATH "Resources/beams_30.png"
 #define MISSILE_SPRITE_PATH "Resources/missile.png"
 
+enum WeaponType
+{
+	LaserBeam,
+	Missiles,
+	Torpedoes
+};
+
+bool CompareColor(Color a, Color b);
+void WaitForSeconds(Uint32);
 #endif // !PUBLIC_H
 

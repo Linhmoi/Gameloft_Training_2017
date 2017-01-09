@@ -20,7 +20,7 @@ Font* UIElement::getFont()
 	return this->_font;
 }
 
-char* UIElement::getText()
+std::string UIElement::getText()
 {
 	return this->_text;
 }
@@ -40,7 +40,7 @@ void UIElement::setFont(Font* font)
 	this->_font = font;
 }
 
-void UIElement::setText(char* text)
+void UIElement::setText(std::string text)
 {
 	this->_text = text;
 }
@@ -76,22 +76,22 @@ void UIElement::LoadTextureFromFont(UIElement::TextType type)
 	switch (type)
 	{
 	case TextType::Blended:
-		surface = TTF_RenderText_Blended(this->_font, this->_text, this->_color);
+		surface = TTF_RenderText_Blended(this->_font, this->_text.c_str(), this->_color);
 		SDL_Log("Blended");
 		break;
 	case TextType::Shaded:
-		surface = TTF_RenderText_Shaded(this->_font, this->_text, this->_color, this->_shadedColor);
+		surface = TTF_RenderText_Shaded(this->_font, this->_text.c_str(), this->_color, this->_shadedColor);
 		SDL_Log("Shaded");
 		break;
 	default:
-		surface = TTF_RenderText_Solid(this->_font, this->_text, this->_color);
+		surface = TTF_RenderText_Solid(this->_font, this->_text.c_str(), this->_color);
 		SDL_Log("Solid");
 		break;
 	}
 
 	fwCreateTextureFromSurface(this->_tex, surface);
 	SDL_Log("After switch");
-	TTF_SizeText(this->_font, this->_text, &this->_w, &this->_h);
+	TTF_SizeText(this->_font, this->_text.c_str(), &this->_w, &this->_h);
 	SDL_Log("After set size");
 }
 

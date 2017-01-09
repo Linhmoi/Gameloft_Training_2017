@@ -9,7 +9,9 @@
 #include "MenuScene.h"
 #include "LogoScene.h"
 #include "LoadingScene.h"
+#include "GameScene.h"
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 #define DEF_WIDTH		800
@@ -53,6 +55,7 @@ UIElement btn;
 MenuScene* menu = new MenuScene(DEF_WIDTH, DEF_HEIGHT);
 LogoScene* logo = new LogoScene(DEF_WIDTH, DEF_HEIGHT);
 LoadingScene* loading = new LoadingScene(DEF_WIDTH, DEF_HEIGHT);
+GameScene* game = new GameScene(DEF_WIDTH, DEF_HEIGHT);
 
 void ScrollBackground(int &firstBgY, int &secondBgY);
 void MoveRight(int velocity, int &curPosX);
@@ -65,8 +68,9 @@ void CheckFire();
 
 bool Init()
 {
+	game->Init();
 	//logo->Init();
-	loading->Init();
+	//loading->Init();
 	//menu->Init();
 	//spr.LoadTextureFromFile("Resources/mc.png");
 	//spr.setPosition(0, 500);
@@ -75,8 +79,10 @@ bool Init()
 
 void Update(float dt)
 {
+	game->Update();
 	//logo->Update();
-	loading->Update();
+	//loading->Update();
+	//menu->Update();
 	//spr.MoveTo(200, 200, 1);
 	//SDL_Log("dt = %.03f", dt);
 	//cout << "isFire: " << isFire << endl;
@@ -85,8 +91,10 @@ void Update(float dt)
 
 void Render()
 {
+	game->Render();
 	//logo->Render();
-	loading->Render();
+	//loading->Render();
+	//menu->Render();
 	//spr.Render(50, 50);
 	/*bgRect.x = bgX;
 	bgRect.y = bgY;
@@ -145,28 +153,30 @@ void Render()
 
 void OnKeyDown(int key)
 {
-	switch (key)
-	{
-	case SDLK_a: SDL_Log("Key A is Down");
-		/*sprite.MoveLeft();*/
-		break;
-	case SDLK_d: SDL_Log("Key D is Down");
-		/*sprite.MoveRight();*/
-		break;
-		case SDLK_SPACE:
-			/*CheckFire();*/
-			SDL_Log("Key Space is Down");
-		break;
-	case SDLK_UP: SDL_Log("Key UP is Down");
-		break;
-	}
+	game->OnKeyDown(key);
+	//menu->OnKeyDown(key);
+	//switch (key)
+	//{
+	//case SDLK_a: SDL_Log("Key A is Down");
+	//	/*sprite.MoveLeft();*/
+	//	break;
+	//case SDLK_d: SDL_Log("Key D is Down");
+	//	/*sprite.MoveRight();*/
+	//	break;
+	//	case SDLK_SPACE:
+	//		/*CheckFire();*/
+	//		SDL_Log("Key Space is Down");
+	//	break;
+	//case SDLK_UP: SDL_Log("Key UP is Down");
+	//	break;
+	//}
 }
 
 void Terminate()
 {
 	//delete logo;
-	/*delete menu;*/
-	delete loading;
+	//delete menu;
+	//delete loading;
 	fwDestroyTexture(gTex1);
 	fwDestroyTexture(gTex2);
 	fwTerminate();
@@ -191,7 +201,8 @@ void OnKeyUp(int key)
 
 void OnMouseDown()
 {
-	int x, y;
+	//menu->OnMouseDown();
+	/*int x, y;
 	SDL_GetMouseState(&x, &y);
 	SDL_Log("mouse x: %d", x);
 	SDL_Log("mouse y: %d", y);
@@ -203,7 +214,12 @@ void OnMouseDown()
 	if (x >= btn.getPosition().x && x <= (btn.getPosition().x + btn.getRect().w) && y >= btn.getPosition().y && y <= (btn.getPosition().y + btn.getRect().h))
 	{
 		SDL_Log("mouse pressed");
-	}
+	}*/
+}
+
+void OnMouseOver()
+{
+	//menu->OnMouseOver();
 }
 
 void ScrollBackground(int &firstBgY, int &secondBgY)
@@ -229,6 +245,7 @@ void ScrollBackground(int &firstBgY, int &secondBgY)
 
 int main(int argc, char *argv[])
 {
+	srand(time(NULL));
 	fwInit(DEF_WIDTH, DEF_HEIGHT);
 	fwSetFPS(DEF_FPS);
 	fwRegisterUpdateCallback(Update);
@@ -236,6 +253,7 @@ int main(int argc, char *argv[])
 	fwRegisterOnKeyDownCallback(OnKeyDown);
 	fwRegisterOnKeyUpCallback(OnKeyUp);
 	fwRegisterOnMouseDownCallback(OnMouseDown);
+	fwRegisterOnMouseMotionCallback(OnMouseOver);
 
 	if (Init())
 	{

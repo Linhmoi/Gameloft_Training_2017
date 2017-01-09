@@ -31,6 +31,7 @@ void fwDestroyTexture(Texture* tex);
 void fwRenderTexture(Texture* tex, Rect* src, Rect* des);
 void fwRotateTexture(Texture* tex, Rect* src, Rect* des, double angle);
 void fwCreateTextureFromSurface(Texture* &tex, Surface* surface);
+void fwSetTextureColor();
 void fwUpdateRenderer();
 
 void fwCloseFont(Font* font);

@@ -70,6 +70,8 @@ void MenuScene::Init()
 	this->_btnAbout->LoadTextureFromFont(UIElement::TextType::Solid);
 	this->_btnHelp->LoadTextureFromFont(UIElement::TextType::Solid);
 	this->_btnExit->LoadTextureFromFont(UIElement::TextType::Solid);
+	this->_txtAbout->LoadTextureFromFont(UIElement::TextType::Solid);
+	this->_txtHelp->LoadTextureFromFont(UIElement::TextType::Solid);
 
 	int posX = (this->_screenW / 2) - (GAME_TITLE_W / 2);
 	int posY = MARGIN_TOP;
@@ -156,20 +158,127 @@ void MenuScene::ScrollBackground()
 
 void MenuScene::OnMouseDown()
 {
+	int x, y;
+	SDL_GetMouseState(&x, &y);
 
+	if (x >= this->_btnPlay->getPosition().x && x <= (this->_btnPlay->getPosition().x + BTN_TEXT_W) && y >= this->_btnPlay->getPosition().y && y <= (this->_btnPlay->getPosition().y + BTN_TEXT_H))
+	{
+		//load GameScene
+	}
+
+	if (x >= this->_btnAbout->getPosition().x && x <= (this->_btnAbout->getPosition().x + BTN_TEXT_W) && y >= this->_btnAbout->getPosition().y && y <= (this->_btnAbout->getPosition().y + BTN_TEXT_H))
+	{
+		//Show _txtAbout
+		this->HideMenu();
+		this->_txtAbout->setIsRender(true);
+		this->_isAboutOpen = true;
+	}
+
+	if (x >= this->_btnHelp->getPosition().x && x <= (this->_btnHelp->getPosition().x + BTN_TEXT_W) && y >= this->_btnHelp->getPosition().y && y <= (this->_btnHelp->getPosition().y + BTN_TEXT_H))
+	{
+		//Show _txtHelp
+		this->HideMenu();
+		this->_txtHelp->setIsRender(true);
+		this->_isHelpOpen = true;
+	}
+
+	if (x >= this->_btnExit->getPosition().x && x <= (this->_btnExit->getPosition().x + BTN_TEXT_W) && y >= this->_btnExit->getPosition().y && y <= (this->_btnExit->getPosition().y + BTN_TEXT_H))
+	{
+		//Exit game
+	}
 }
 
 void MenuScene::OnMouseOver()
 {
+	bool isInside = false;
+	int x, y;
+	SDL_GetMouseState(&x, &y);
 
+	Color normal = BTN_TEXT_COLOR;
+	Color hover = BTN_TEXT_HOVER_COLOR;
+
+	if (x >= this->_btnPlay->getPosition().x && x <= (this->_btnPlay->getPosition().x + BTN_TEXT_W) && y >= this->_btnPlay->getPosition().y && y <= (this->_btnPlay->getPosition().y + BTN_TEXT_H))
+	{
+		isInside = true;
+		this->_btnPlay->setColor(hover);
+		this->_btnPlay->LoadTextureFromFont(UIElement::TextType::Solid);
+	}
+
+	if (x >= this->_btnAbout->getPosition().x && x <= (this->_btnAbout->getPosition().x + BTN_TEXT_W) && y >= this->_btnAbout->getPosition().y && y <= (this->_btnAbout->getPosition().y + BTN_TEXT_H))
+	{
+		isInside = true;
+		this->_btnAbout->setColor(hover);
+		this->_btnAbout->LoadTextureFromFont(UIElement::TextType::Solid);
+	}
+
+	if (x >= this->_btnHelp->getPosition().x && x <= (this->_btnHelp->getPosition().x + BTN_TEXT_W) && y >= this->_btnHelp->getPosition().y && y <= (this->_btnHelp->getPosition().y + BTN_TEXT_H))
+	{
+		isInside = true;
+		this->_btnHelp->setColor(hover);
+		this->_btnHelp->LoadTextureFromFont(UIElement::TextType::Solid);
+	}
+
+	if (x >= this->_btnExit->getPosition().x && x <= (this->_btnExit->getPosition().x + BTN_TEXT_W) && y >= this->_btnExit->getPosition().y && y <= (this->_btnExit->getPosition().y + BTN_TEXT_H))
+	{
+		isInside = true;
+		this->_btnExit->setColor(hover);
+		this->_btnExit->LoadTextureFromFont(UIElement::TextType::Solid);
+	}
+
+	if (!isInside)
+	{
+		this->_btnPlay->setColor(BTN_TEXT_COLOR);
+		this->_btnExit->setColor(BTN_TEXT_COLOR);
+		this->_btnHelp->setColor(BTN_TEXT_COLOR);
+		this->_btnAbout->setColor(BTN_TEXT_COLOR);
+
+		this->_btnPlay->LoadTextureFromFont(UIElement::TextType::Solid);
+		this->_btnAbout->LoadTextureFromFont(UIElement::TextType::Solid);
+		this->_btnHelp->LoadTextureFromFont(UIElement::TextType::Solid);
+		this->_btnExit->LoadTextureFromFont(UIElement::TextType::Solid);
+	}
 }
 
 void MenuScene::OnKeyDown(int key)
 {
-
+	switch (key)
+	{
+	case SDLK_ESCAPE:
+		break;
+	case SDLK_r:
+		this->_isAboutOpen = false;
+		this->_isHelpOpen = false;
+		this->ShowMenu();
+		break;
+	}
 }
 
 void MenuScene::AboutPanel()
 {
+	this->_txtAbout->Render(BTN_TEXT_W, BTN_TEXT_H);
+}
 
+void MenuScene::HelpPanel()
+{
+	this->_txtHelp->Render(BTN_TEXT_W, BTN_TEXT_H);
+}
+
+void MenuScene::HideMenu()
+{
+	this->_btnPlay->setIsRender(false);
+	this->_btnAbout->setIsRender(false);
+	this->_btnExit->setIsRender(false);
+	this->_btnHelp->setIsRender(false);
+	this->_gameTitle->setIsRender(false);
+}
+
+void MenuScene::ShowMenu()
+{
+	this->_btnPlay->setIsRender(true);
+	this->_btnAbout->setIsRender(true);
+	this->_btnExit->setIsRender(true);
+	this->_btnHelp->setIsRender(true);
+	this->_gameTitle->setIsRender(true);
+	this->_txtAbout->setIsRender(false);
+	this->_txtHelp->setIsRender(false);
 }
